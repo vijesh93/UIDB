@@ -1,11 +1,12 @@
 import psycopg2
-import os
+from .config import settings
+
 
 def get_connection():
     return psycopg2.connect(
-        host=os.getenv("DB_HOST", "postgres"),
-        database=os.getenv("DB_NAME", "learning_db"),
-        user=os.getenv("DB_USER", "postgres"),
-        password=os.getenv("DB_PASSWORD", "postgres"),
-        port=5432
+        host=settings.DB_HOST,
+        database=settings.DB_NAME,
+        user=settings.DB_USER,
+        password=settings.DB_PASSWORD,
+        port=settings.DB_PORT
     )
