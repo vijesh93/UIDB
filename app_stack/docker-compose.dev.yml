@@ -1,0 +1,19 @@
+services:
+  postgres:
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  backend:
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+    volumes:
+      - ./app_backend/src:/app/src
+    ports:
+      - "8000:8000"
+    restart: unless-stopped

@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15.15-trixie
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: learning_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  backend:
+    build: ./app_backend
+    volumes:
+      - ./app_backend/src:/app/src
+    container_name: backend-api
+    environment:
+      DB_HOST: postgres
+      DB_NAME: learning_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

@@ -1,0 +1,22 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Docker
+.docker/
+# We keep docker-compose.yml, but ignore specific data volumes if they are local
+postgres_data/
+
+# OS and IDE
+.DS_Store
+.vscode/
+.idea/
